@@ -37,7 +37,7 @@ M.list_sessions = (function()
    local buf = vim.api.nvim_create_buf(true, false)
    local out = vim.api.nvim_exec('!ls '..sessions_path, true)
 
-   vim.api.nvim_buf_set_lines(buf, 0, -1, 0, out)
+   vim.api.nvim_buf_set_lines(buf, 0, -1, 0, { 'test' })
    vim.api.nvim_open_win(buf, true, {relative='win', width=30, height=30, bufpos={100, 100}})
 
 end)
