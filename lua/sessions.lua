@@ -45,12 +45,11 @@ end
 
 -- This function lists all the sessions' names
 M.list_sessions = (function() 
-   local buf = vim.api.nvim_create_buf(true, false)
+   local buf = vim.api.nvim_create_buf(true, true)
    local out = vim.api.nvim_exec('!ls '..sessions_path, true)
 
    vim.api.nvim_buf_set_lines(buf, 0, -1, 0, string_split(out))
    vim.api.nvim_open_win(buf, true, {relative='win', width=30, height=30, bufpos={100, 100}})
-
 end)
 
 -- TODO: delete_session, load_session, autoupdate
