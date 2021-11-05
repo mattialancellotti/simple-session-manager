@@ -7,7 +7,6 @@ local M = {}
 local sessions_path = string.format('%s%s', vim.env.HOME, '/.local/share/nvim/sessions/')
 
 -- Printing functions
-local del_print = vim.api.nvim_del_current_line
 local echo = vim.api.nvim_out_write
 local err = vim.api.nvim_err_writeln
 
@@ -27,8 +26,9 @@ M.create_session = (function ()
    end
 
    -- Printing an error message
-   err('File already exists')
+   err('Invalid file name, it either exists or can\'t be created.')
    io.close(file)
+
    return false
 end)
 
