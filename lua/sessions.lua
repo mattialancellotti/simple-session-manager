@@ -11,7 +11,7 @@ local echo = vim.api.nvim_out_write
 local err = vim.api.nvim_err_writeln
 
 -- Creates a session based on the user's input for a file name.
-M.create_session = (function ()
+M.create_session = (function()
    local name, file
 
    -- Asks for a name and checks if it already exists
@@ -33,7 +33,14 @@ M.create_session = (function ()
 end)
 
 -- This function lists all the sessions' names
-M.list_sessions = (function () vim.cmd('!ls '..sessions_path) end)
+M.list_sessions = (function() 
+   local buf = vim.api.nvim_create_buf(true, false)
+   local out = vim.api.nvim_exec('!ls '..sessions_path, true)
+
+   vim.api.nvim_buf_set_lines(buf, 0, -1, 0, out)
+   vim.api.nvim_open_win(buf, true, {relative='win', width=30, height=30, bufpos={100, 100}})
+
+end)
 
 -- TODO: delete_session, load_session, autoupdate
 return M
