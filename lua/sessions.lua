@@ -32,12 +32,23 @@ M.create_session = (function()
    return false
 end)
 
+local function string_split(raw_list)
+   local sessions = {}
+
+   -- Separating the list
+   for file in string.gmatch(raw_list, "%a+.vim") do
+      table.insert(sessions, file)
+   end
+
+   return sessions
+end
+
 -- This function lists all the sessions' names
 M.list_sessions = (function() 
    local buf = vim.api.nvim_create_buf(true, false)
    local out = vim.api.nvim_exec('!ls '..sessions_path, true)
 
-   vim.api.nvim_buf_set_lines(buf, 0, -1, 0, { out })
+   vim.api.nvim_buf_set_lines(buf, 0, -1, 0, string_split(out))
    vim.api.nvim_open_win(buf, true, {relative='win', width=30, height=30, bufpos={100, 100}})
 
 end)
