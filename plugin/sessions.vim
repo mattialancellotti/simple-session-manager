@@ -4,7 +4,7 @@
 " If it was than stop sourcing.
 "
 " :help finish
-if eixsts("g:sessions_managers")
+if exists("g:sessions_managers")
      finish
 endif
 
